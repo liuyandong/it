@@ -27,6 +27,9 @@ book:
     - podcast017.qmd
     - podcast018.qmd
     - podcast019.qmd
+    - podcast020.qmd
+    - podcast021.qmd
+    - podcast023.qmd
 
 
 bibliography: references.bib
