@@ -30,6 +30,8 @@ book:
     - podcast020.qmd
     - podcast021.qmd
     - podcast023.qmd
+    - podcast024.qmd
+    - podcast025.qmd
 
 
 bibliography: references.bib
