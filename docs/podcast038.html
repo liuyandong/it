@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>37&nbsp; Linux传奇：Linus如何在裸机上写软件 – podcast-book</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./podcast039.html" rel="next">
+<link href="./podcast037.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./podcast038.html"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Linux传奇：Linus如何在裸机上写软件</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">podcast-book</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast001.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Java语言的前生今世(上)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast002.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Java语言的前生今世(下)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast003.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">BT(BitTorrent)的前生今世</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast004.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">任天堂的前生今世(上)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast005.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">任天堂的前生今世(下)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast006.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">智能手机背后的故事(上)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast007.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">智能手机背后的故事(下)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast008.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Doom的前生今世</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast009.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">安卓系统的前生今世</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast010.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">谷歌的扮猪吃老虎</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast011.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">危险的Facebook</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast012.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">第12期：专利不可怕，就怕专利流氓有文化</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast013.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">第13期. 手握爪机向天问——抵制洋货有何难</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast014.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">第14期 钻钻牛角尖——电脑开机都开了啥？</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast015.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">第15期 短平快前女友的照片是怎么晒出去的？</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast016.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">第16期 一个伟大的公司之死</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast017.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">第17期 决战光明顶–编译器的圣战</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast018.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">第18期 Blogger谁从毫末见参天</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast019.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">第19期 苹果换新一次成功的大迁徙</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast020.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">第20期 指令集之争，分久必合</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast021.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">互联网是谁发明？</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast023.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">任天堂往事，马里奥之父宫本茂</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast024.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">任天堂往事，精灵宝可梦之父田尻智</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast025.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">转给苹果用户一段不可不知的历史</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast026.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">转给安卓手机用户，自有土地上开出的罪恶之花</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast027.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">可视化的一生(鸡汤文)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast028.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Unix的起源和长久的发展</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast029.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Unix和里奇留给人类最好的遗产</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast030.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">两个人加六个月做出了一个Unix操作系统</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast031.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Unix火箭的助推器：C语言</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast032.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">BSD版权战争中重获自由的Unix</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast033.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Unix痛恨者手册读后感</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast034.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Linux传奇大鼻子男孩的诞生</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast035.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Linux传奇2：Linus的童年时光</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast036.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Linux传奇：书呆子的中学生涯</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast037.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Linux传奇：Linus上大学</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast038.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Linux传奇：Linus如何在裸机上写软件</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast039.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Linux传奇：终端到操作系统</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Linux传奇：Linus如何在裸机上写软件</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>前文提到，21岁的Linus买回来了一台电脑，对上面自带的MS-DOS操作系统不满意。后来又花了169美元买了一个叫Minix的操作系统，在用了16张软盘装上以后，用了一下还是不满意。然后呢，他就决定自己做一个终端，连到学校的Unix上用Unix的机器。</p>
+<p>我前面所说的这段话有非常重要的信息。我们从中可以看出Linus的机智，他觉得MS-DOS不好用，也觉得Minix操作系统不好用。他有没有去抱怨呀？比如说发个邮件给微软或者是发给Minix的开发者就开始抱怨。那个Minix的开发者名字不叫安卓，真的很搞笑，大家别误会了。他也没有抱怨，也没有到网上去骂，而是自己卷起袖子就开始干了，这就是实干家的作风。</p>
+<p>再多举几个例子，我比较佩服的几个实干家。比如说朱元璋，他看到元朝非常的腐败，他有没有去上访啊？有没有找哪个县官提意见，说你这个当官要为民做主，或者去元大都去找元顺帝反映情况，说你元顺帝是个好皇帝，可是下面的官不行？没有，他什么都没有做，因为这是无用功嘛。当17岁的朱元璋的亲人一个一个饿死，他就和他的二哥用门板抬着亲人的尸体。在元朝的时候，房价也非常的贵，墓地也非常的贵，他买不起墓地，就这样抬着尸体到处走。天下虽然很大，到处都是土地，但是没有一块是朱元璋的。后来朱元璋当了皇帝，想起这件事情来就哭了。他其实后来一直不知道他的父母葬在哪里。后来凤阳建了一个祖坟，其实里面并没有他父母的尸骨。</p>
+<p>我们再举个例子，比如说我们敬爱的毛润之老先生，年轻的时候有没有写信给国民党政府说你很腐败？没有，都是卷起袖子自己干，枪杆子里出政权。所以这些牛人都是实干家的，他们也不批评，也不抱怨，Linus也是。所以有时候我觉得我们要向这些老前辈学习，别做那些无用功，试图用骂人或者装可怜来让别人改进，用处其实很小。觉得用的不爽，就自己搞，自己写个软件。</p>
+<p>我们来看一下Linus干了什么东西，他在自传里头写了。首先呢，他要研究这台电脑的BIOS，如何从软盘中启动起来。然后启动以后呢，要让电脑从实模式转换到保护模式。接下来呢，在研究CPU的工作原理，比如说你要了解中断，如何把输出的结果显示在屏幕上，如何用调制解调器上网等等。再接下来呢，他还需要写两个独立的进程。一个进程是读调制解调器的数据来上网，并且从网络上下载的数据再显示在显示器上。另一个进程则是读键盘中的输入，并将键盘中读到的数据都写到调制解调器上再传到网上。比如说要发帖子，你要先下载下来，然后再从键盘读了数据，再贴上。为了这个功能，Linus没日没夜地干了一个多月的时间。</p>
+<p>这里的读者都非常年轻，不知道调制解调器是什么东西。在我那个年代，在我上学的时候，那个年代就是2000年左右的时候吧，再早一点，上网是通过电话线的，就是咱们真的打电话的那个线上网。我们知道上网使用的是数字信号，那个电话线里那个铜线里面传的是什么信号？是模拟信号。所以这个调制解调器最主要的用途就是将模拟信号和数字信号之间来回的转换。</p>
+<p>在做完了这个东西以后，Linus如果想去上网看新闻的话，就把这个软盘放在软驱里重启电脑。这个电脑就从这个软盘中启动起来，这个软盘中的系统就开始运行，他就用这个系统来上网。如果他想改进一下这个仿真软件，就再重启一下电脑，就进入他花了169美金海淘回来的那个Minix操作系统，用那个系统来编程。那个时候呢，他的电脑里已经没有MS-DOS了，就是他用来玩游戏的那个系统已经没有了。</p>
+<p>故事先讲到这里，我们就开始仔细的分析一下这段故事中透露出来的信息。要知道Linus为了这个小玩意已经干了一个多月，就是没日没夜地写软件，就一个多月。我在这里呢，试图通过15分钟或者20分钟讲清楚，已经是非常非常偷懒了。如果好奇心非常强的同学，可以真的买那本Linus的自传，随便买一本比较老的，越老的越好，因为新的源代码还看不懂，就越老的那种Linux源代码。然后自己来看一下，上面都有讲。比如说我上一期所说的这本书叫《Linux Cocoon Commentary》。这本书我慢慢地磨了好几年，最后还是有一部分看不懂，但是大部分我觉得都是能懂的。</p>
+<p>我们通过这个信息来分析一下。首先呢，他要研究BIOS，然后设置BIOS，让电脑从软盘中启动起来。这个过程呢，我以前在这个公众号“软件那些事”里写过，就是写电脑一按电源之后，BIOS的整个技术细节，名字叫做“钻牛角尖：电脑启动都启动了啥？”如果有人好奇的话，并且没听过，可以翻一翻看看，里面讲的比这里清楚。这里我就简单的说一下，就是电脑启动以后呢，会启动一个扇区。如果发现这个扇区里有特定的字符，就知道这个东西是可以启动的。这个字符就告诉他，它就从这里启动。引导扇区只有512个字节，这512个字节非常的小，而且现在超过512个字节怎么办呢？要解决这个问题，你必须得有解决方案。并且这个如果你只是想在电脑上显示一个“Hello World”，在裸机上你就写一个启动扇区就可以，20行代码就可以。在这里我也没法讲，代码非常简单，但是其他事情都不做，就是一下启动起来就显示一个“Hello World”，就不是操作系统，就是一个启动扇区就能做这件事情。</p>
+<p>上面我还提到了Minix，Linus付了个首付，付了1000多美金，买回来一台有386处理器的电脑。问题就出在这里，但这都是他的自传里写的。我们就分析为什么他要写这个东西？因为从80386开始，英特尔开始让CPU进入32位的时代，就整个个人电脑正好要进入32位，以前都是16位。32位是什么意思呢？我们可以想它有32根地址线，大家可以近似的认为CPU和内存之间插了32根电线，你就可以这样认为。很大一捆电线，32根总共它访问的内存地址可以是多少呢？我们知道是2的32次方，就是4G内存。如果当年你很有钱，是个土豪，比如说你花了几十万给电脑装了8G内存，可能是没有，当年没有8G。如果你特别有钱，装了8G也没有用，因为电脑只能用4G，你装上了8G，至少有4G是浪费了。因为其他的超过这个4G的就没法用。当时Linus没有买那么多，他就买了个4M。</p>
+<p>如果大家对CPU感兴趣的话，可以再看看我微信公众号的以前的内容。我也讲过指令集，指令集就是讲英特尔这段历史。因为我们不停地在讲技术的话，这些技术并不是凭空产生的，都是碰到了问题才想解决方法。电脑好像也是这样，并不是哪个牛人在哪个地方说画了一个圈就搞定了，那都是骗人的，除非那个人是孙悟空，画个圈可以挡住妖魔鬼怪。</p>
+<p>因为英特尔刚开始的时候，CPU是8086，是16位的CPU。16位的CPU有16位寄存器，16位数据总线。然后下面这个数字就开始变了，它的地址总线并不是16根，而是20个。这个大学里考试，如果大家是大学生的话，你可以知道大学里考试经常有的题就这样坑你一下。大家认为前面都是16，后面也应该是16，其实不是。英特尔8086这个16位的CPU，地址总线是20个。在学校里考试的时候，还经常有一个知识点，就是怎么算物理地址。其实很简单，你稍微看一下书也就明白了，我这里讲也确实没什么意思。再说了，你不用看公式的话，也有点讲不明白，那个公式也非常简单，三年级就可以知道什么意思。</p>
+<p>大家只需要知道一点，16位的时候呢，要做内存寻址还是可以的。但是一旦进入32位的时代，从寻址的方面来说，光有16位寄存器就不够了。因为Linus当时正处于个人电脑从16位转向32位这个历史时刻。所以说Linus的运气非常的好，一方面呢，它是16位转32位刚刚开始。另一个方面呢，这两年Unix正在打官司，因为版权的官司嘛，打了三年，就为了3个文件打官司，打了三年。这三年Unix根本没更新，就让Linus抓住了这个机会。如果稍早一点或者稍晚一点，或者Unix没有打官司，32位的Unix就马上推出。而Linus本身就喜欢用Unix，所以他也不会再去模仿Unix，再写一个新的操作系统。</p>
+<p>当然了，历史也不能假设，我这里只是一家之言嘛。接下来就开始引入实模式和保护模式的区别。首先我得声明一下，实模式转到保护模式下的好处非常非常多，课本上都讲了很多条，不只是内存寻址。但这里我这个也不是教科书，只讲一点，讲多了也没事。电脑刚刚开机的时候呢，是实模式，就是我们这样一开机，那个电脑就开始进入实模式。</p>
+<p>我前面铺垫一下，实模式是有问题的，就是没有办法使用更多的内存。这个时候呢，因为内存多了嘛，你必须要做某些机制做出改变。你插了那么多内存，如果用不到，是不是很崩溃？这个时候呢，就想了一个解决方法，就是说在某个时刻电脑启动的某个时刻，就执行一个叫“模式切换”操作。一旦这个模式切换执行，就相当于是整个国家发生了变革，电脑这个操作一下子就换了新的统治者。</p>
+<p>这里面当然讲优点非常多，我们可以这样类比一下。比如说，新中国成立以后，刚开始就是在摸索中运作，包括要进入共产主义啊或者什么。但是伴随着一大堆报纸上说的举世瞩目的成就，比如说大连钢铁呀、什么文革之类的，慢慢的人民就有了更多的需求，就满足不了了嘛，怎么办呀？就改革开放。也就是说呢，在某个时刻，新中国在改革开放的那一刹那，实现了这个转变操作，以前的规则就不算数了。现在是在邓小平的领导下，继续取得举世瞩目的成绩。以前的成绩当然也是举世瞩目，现在的成绩也举世瞩目，但是呢，以前是实模式，现在是保护模式，希望大家对这个实模式和保护模式有一个感性的认识。</p>
+<p>其实我很想讲技术细节，想想还是算了，讲起来很久也就不讲了，能讲起来还是有点麻烦。你如果不看书不画图的话，是讲不清楚的。上次我们也分析了linux买的电脑是什么配置，相当于它当时的内存是非常多的，当时非常多，高达四兆。如果linux没有追求的话，很多人没有追求的话，它其实只可以用实模式就可以了。其实大家可以算算看，实模式下，你只能使用一兆内存。它本来就花了那么多钱，而且本来还很穷，还贷款买的电脑，买了个四兆的。你在实模式下最多只能使用一兆内存，就相当于浪费了三兆。所以呢，你为了能用上所有的内存，所以他花了一个月时间来调试各种代码。</p>
+<p>再说一句的话，就是实模式下，这个一兆非常小。</p>
+<p>就是32位保护模式下呢，你可以使用2的32次方，就是可以使用4G内存。当然现在我们这今天的话，电脑就非常容易超过4G内存。像我一台电脑，我工作的电脑远超过4G，我用了32G内存。如果现在有很多人电脑就是配置一个16G的内存，然后他让人家给他装了一个32位的Windows XP。这个时候呢，你最好是不要告诉他他至少浪费了12G内存，因为这种人都一般都比较有钱。如果你再告诉他内存寻址什么这种话的话，只能不是显得他特别笨，而是显得我们特别穷。所以这个时候呢，我们还是保持沉默就好。</p>
+<p>另外再说一下“保护”这两个字，为什么叫保护模式呢？这个“保护”这两个字从什么地方来？保护模式就是说你这个内存一旦你超过了某个范围，你就不能访问了，这就是保护的意思。你的软件并不能说我想写一个软件，想访问哪里就访问哪里。那这病毒不是正经软件，所以呢才有保护模式这一说。就有些内存地址你是不能访问的。但是这里面还有不少很有趣的技术细节，比如说GDT啊、LDT啊，就是描述符表等等，这种也很重要。但我这个公众号也不能讲这个，本来听众一个时候，你在讲这个就崩溃了。当然还是看书比较好，我这里也就不多说了，再讲它字段里最后一个细节吧。</p>
+<p>linux在当时，他当时就写了两个进程，一个呢是往屏幕上写aaa，就是一串a；另一个呢，往屏幕上不停地在写bbbbb，就非常兴奋。为什么很兴奋了？你可能会想，哎，进程不就是一块或大或小的代码块嘛，应该也不难。你到了某一个时间，你让他去执行就行了呢。其实呢，这句话就差一点就对了。其说的差一点是什么意思呢？比如说我可以说我当年差一点就考上北京大学了，因为当年北京大学录取分数是715分。我差了一点，就是差考了，我考了71.5分，也是差一点嘛。其实非常难，进程难就难在这个进程的调度上。</p>
+<p>如果linux当时想写这个任务，因为是两个任务嘛，但他的电脑上只有一个CPU。最简单的方法是什么？当然是两个CPU，一个任务运行在一个CPU上，这样一点都不冲突。但实际上不行，因为它只有一个CPU，你要牵扯到这个进程的调度。进程调度也是计算机课操作系统课中非常重要的一个内容。</p>
+<p>在完成了多进程这个工作以后，linux本人也非常高兴，因为这个工作太重要了，他就自传了一些内容。我顿时感到特别自豪，对于这次成就，他甚至喊他的妹妹Sara过来看看，要知道他们两个关系一直不怎么好。结果他妹妹就看到屏幕上一会儿显示a，一会儿显示b，然后就很期待嘛。最后看了一会儿，就不停地这样。他说大概过了5秒，就说了一句：“挺好。”转身就走了。随后呢，linux在自传里还是继续很自豪地写，有些东西呢，表面看起来是没有什么东西，但是呢背后却包含了大量复杂的工作。就好像你刚刚把一段铺好的公路指给别人看，指望这样能让别人明白你耗费了多少人力物力，那根本不可能。</p>
+<p>所以呢，这一期内容也就讲到这里，也没有办法再继续深入的技术细节。呃，我们可以回忆一下，首先我们先讲了BIOS的启动，就讲了如何突破512个字节的启动限制，还讲了实模式和保护模式之间的关系，就是保护模式更好。最后呢，我们讲了进程，就是你要有进程调度啊，非常难。所以我们大概也就是用了那么十几分钟，回顾了一下linux一个多月的工作，其实是远远不够的。如果有非常好奇的人的话，非常希望大家能买本书来看看。如果有志于当程序员的话，比如说我一直推荐的这本《Linux Concurrency and Communication》或者其他类似的书。其实光听我讲故事，最后听来听去，只能在饭桌上吹吹牛，也没有什么太大的用处。linux的自传只是为了好玩。第55页仍然是说我当时穷得叮当响。我一向认为做人非常重要的一点就是不应该向别人开口要钱或者讨钱。他每个月呢，都还要为了还贷款操心，因为当年他真的是穷得叮当响。后来呢，一些linux的用户知道了以后呢，就凑钱把他的电脑的贷款给还了，但是他还是很开心嘛。</p>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./podcast037.html" class="pagination-link" aria-label="Linux传奇：Linus上大学">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Linux传奇：Linus上大学</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./podcast039.html" class="pagination-link" aria-label="Linux传奇：终端到操作系统">
+        <span class="nav-page-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Linux传奇：终端到操作系统</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

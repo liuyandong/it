@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>32&nbsp; Unix痛恨者手册读后感 – podcast-book</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./podcast034.html" rel="next">
+<link href="./podcast032.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./podcast033.html"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Unix痛恨者手册读后感</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">podcast-book</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast001.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Java语言的前生今世(上)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast002.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Java语言的前生今世(下)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast003.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">BT(BitTorrent)的前生今世</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast004.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">任天堂的前生今世(上)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast005.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">任天堂的前生今世(下)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast006.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">智能手机背后的故事(上)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast007.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">智能手机背后的故事(下)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast008.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Doom的前生今世</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast009.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">安卓系统的前生今世</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast010.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">谷歌的扮猪吃老虎</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast011.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">危险的Facebook</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast012.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">第12期：专利不可怕，就怕专利流氓有文化</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast013.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">第13期. 手握爪机向天问——抵制洋货有何难</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast014.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">第14期 钻钻牛角尖——电脑开机都开了啥？</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast015.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">第15期 短平快前女友的照片是怎么晒出去的？</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast016.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">第16期 一个伟大的公司之死</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast017.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">第17期 决战光明顶–编译器的圣战</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast018.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">第18期 Blogger谁从毫末见参天</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast019.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">第19期 苹果换新一次成功的大迁徙</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast020.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">第20期 指令集之争，分久必合</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast021.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">互联网是谁发明？</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast023.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">任天堂往事，马里奥之父宫本茂</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast024.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">任天堂往事，精灵宝可梦之父田尻智</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast025.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">转给苹果用户一段不可不知的历史</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast026.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">转给安卓手机用户，自有土地上开出的罪恶之花</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast027.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">可视化的一生(鸡汤文)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast028.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Unix的起源和长久的发展</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast029.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Unix和里奇留给人类最好的遗产</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast030.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">两个人加六个月做出了一个Unix操作系统</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast031.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Unix火箭的助推器：C语言</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast032.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">BSD版权战争中重获自由的Unix</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast033.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Unix痛恨者手册读后感</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast034.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Linux传奇大鼻子男孩的诞生</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast035.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Linux传奇2：Linus的童年时光</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast036.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Linux传奇：书呆子的中学生涯</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast037.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Linux传奇：Linus上大学</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast038.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Linux传奇：Linus如何在裸机上写软件</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./podcast039.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Linux传奇：终端到操作系统</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Unix痛恨者手册读后感</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>在前面两期的那篇“Unix 和 C：里奇留给人类最好的遗产”里，我提到了一本书叫做《Unix 痛恨者手册》，并且我把这本书放在了百度网盘里。如果有人没有听过那一期的话，我就再在这里放一下地址，希望有这种爱好者可以去看一下。本来这一期我想讲 Linux 的，但是我还没有想好 Linux 的文章应该怎么写。因为 Linux 这个故事本身就非常值得去讲一下，因为它的用途非常广，所以暂时在这里我就放一篇我很久以前写的读后感。</p>
+<p>当然，后来因为做这些公众号的文章，我还是把那篇读后感看了一下，并且思考了一下。我发现当年我的很多观点已经发生了改变，也许以后这篇文章的观点还会继续发生改变。所以这篇文章都是我主观性很强的东西，随着以后的情况可能还会发生改变。所以大家随便听一听就好。</p>
+<p>为了照顾没有看过上两期公众号文章的人，我就先简单地介绍一下这本《Unix 痛恨者手册》这本书。这本书呢，我们可以通过名字一下就能猜出来，这是骂 Unix 的。这本书的几个作者呢，就是恨 Unix 已经恨到了惊天动地的程度，所以还写了一本书专门来骂它。</p>
+<p>比如说我们普通人，爱一个东西爱的惊天动地，可能会出一本情书集。比如说咱们中国就有一本很出名的情书集，叫《朱生豪情书》。昨天不是七夕嘛，那些美女朋友们应该赶紧买一本这个《朱生豪情书》来读一下。他是民国时候的一个诗人、作家，就是写给一个叫宋清如的女诗人的情书。他们两个人共同翻译了整个莎士比亚的戏剧。我虽然从来没有看过莎士比亚的戏剧，但我觉得作为单身的人嘛，应该学习一下这个朱生豪的情书，还是挺有意思的。所以当年的时候我就买了，我随便念两句给大家听听，他写的都很美好，比现在的歌词都好。比如说：“我想作诗，写雨，写夜的相思，写你，写不出。”再念一句吧：“我们都是世界上多余的人，但至少我们对于彼此都是世界上最重要的人。”哎，如果有人喜欢，可以去买一本，很便宜，这种书也没人买。现在应该单身的人可以去买一本学习一下，人家当年是怎么追女朋友的。不过现在这个年代可能也不太好了，你可能没有车子、没有房子，你写这些东西写得再好也没什么用处。你光写的诗好，可能用处也不大吧。不过，这个朱生豪里面也写了篇文章，他评价中国人说，中国人太不浪漫了，务实到心理卑琐的地步的缘故，因此这个情感与想象都很缺乏，就既没有情感也没有想象。</p>
+<p>好了，这里不说这些了，再来说说这本 Unix 的书。如果有读者听过上一期又恰好下载了这本书的话，那就更好了。或者在其他地方读过这本书也挺好。因为我这个公众号没几个人关注，就是每期的文章阅读人数六七十人。上一次我放百度网盘的链接，我刚刚去拷贝这个链接的时候，我看了一下，总共就五次下载。所以我还是大体地说一下这本书的内容。</p>
+<p>这本书主要是骂 Unix 的，总结的就是 Unix 各种的缺点。但是能够真正算是 Unix 缺点的呢，不到一半，剩下的一半很多都是骂 C 语言啊、嘲笑 C++ 呀。还有一部分是嘲笑 Unix 上的软件，比如说 cinemail（可能是 cinemail 的误识别，实际可能是某个具体的邮件客户端软件名，但无法确定准确名称）。所以本书甩出去的黑锅非常多，但 Unix 本身可能只能背个一半，背个五成，其他的都是编程语言和软件方面的问题。比如说是 Unix 啊，就整个 C++ 的问题可能是 C 语言的问题。</p>
+<p>Unix 有很多面向个人的软件，有很多人是用 Unix 做桌面的。包括现在我们的 Linux，有少部分人，我见过那么一两个，就是用 Linux 做桌面，也不玩游戏，就是开个网页。就是说很多这种软件呢，你体面一点说呢，就是你还需要继续的雕琢；直接一点说，确实不太好用。比如说这本《Unix 痛恨者手册》里提到的那个 cinema（可能是对某个软件的误识别或误记）这个软件，我以前配置过，觉得确实很难配置。还有一个就是收电子邮件的，叫 fetchmail，也不好用。但这个软件的作者之一啊，就叫艾克雷蒙德。这个人挺能写文章的，而且还非常热衷于到处讲座。你说他真正参与了哪些软件呢？确实不多。这是我唯一知道的一个就是 fetchmail 是他自己搞出来的。你说他的技术水平比起 Stallman、Lindas 或者是 Larry Wall 这种的肯定是远远不如人家。但这个人有一点很厉害，就是写文章，其他的人都不怎么写文章。他这个人写文章、办讲座，就是推销整个的这个软件的理念，尤其是开放源（open source）这个软件的理念，算是高手。他写了不少文章，其中有本书名字都非常大，叫《Unix 编程的艺术》。但是我个人觉得，如果你钱不是特别多的话，这本书不要买，没什么意思看了。比如说呢，他不停地说他就是某 zzz 了开源软件，就是他的功劳。因为他名气大嘛，可能人家也不好意思否认，其实按照常理推测的话，应该是不怎么靠谱。比如说 Mozilla 开源，很大程度就是微软要把他给干败了嘛，不可能是说他看了他一篇什么叫《大教堂与集市》的文章，这个公司就决定开源。而且这个人写的所有的文章都是非常宏大的题目，就跟毛泽东一样，《论民主》、《论新阶段》。他写的文章呢也都是非常宏大的题目，比如说《论黑客精神简史》，或者是《论黑客的报复》，就这种的，你看了跟没看也差不多。你看了呢，你也不清楚他到底说了啥，说错了你也不好意思说他说错了，因为他的观点也不怎么新颖，他具体工作还有。他不停地说他维护了一个叫黑客字典，其实就是网络的俚语字典，我还去看过，就类似于现在网络的俚语。我个人觉得挺无聊，他倒是不停地说他这个工作很重要。</p>
+<p>比如说现在很多网络俚语，我们就知道火一阵，有可能就火个两周、几天，以后大家就不说了。他记录下来，比如说呢，这本《Unix 痛恨者手册》里面就有很多类似的就真知灼见，并非是这篇文章所说的就骂街一样。不是的，就是我个人还是非常支持 Unix。你看我写了那么多文章，你应该知道。但是我认为这本书有非常多的可取之处，并不是乱骂。</p>
+<p>再说一点，就是说在桌面端，我们现在用的桌面的 Windows 用户肯定是多于 Unix 或者 Linux 的用户。很多的初学者呢，就是先用了好几年的 Windows，然后呢，突发奇想可能就是想编程了，或者就是纯粹的想去用一下 Linux，就好不容易整了个光盘或者什么就装了，然后又没用两天就赶紧删了，又回到 Windows 中。过一段时间他可能又再重复一次周期性地去安装 Linux。为什么会出现这种情况呢？在这里我来谈谈我的观点啊，结合这本《Unix 痛恨者手册》来谈谈我的观点。</p>
+<p>就是说呢，Windows 用户的设计哲学就非常的跟 Unix 非常的不同。Windows 呢，他一定要假设有一个人就是在电脑前面去操作。你只要是呃这个人不操作了呢，Windows 设计哲学就是：我发现你不操作了，那个电源管理里就有一个选项嘛，就是说你多久不操作我这个屏幕啊，我就先给你待机。而 Unix 或者 Linux 设计哲学就完全不同。它的设计哲学就是：我只要运行起来呢，这个电脑前面你就是可以有人也可以没人，随便，最好是没人，其实你可以远程来操作。比如说你用 SSH 登录上去，基本上就是说你现在所有的网站啊、服务器啊，基本上都是用 Unix 或者 Linux 系统。目前我所知道的基本上都是这样。</p>
+<p>因此知道了这个设计哲学之后啊，我就觉得如果你还是在那种 Linux 上折腾怎么装中文输入法，或者是你怎么用一个叫 Wine 的软件在 Linux 上运行微软的 Office 软件的话，那你就搞错了。比如说你可以运行 Office 2003、2007，用那个软件你装上之后呢，你就可以在 Linux 上运行 Office 软件。但是我觉得这本身就搞错了。为什么说搞错了呢？因为 Linux 本身就不是这样玩的。你那些用 Linux 做主力桌面的，肯定是非常的小众。你在 Linux 上，你即使装上了这个，你输入法有可能就搭配的不好。比如说你装上 Office 能运行了，结果你输入法在里面输不上字，非常有可能出现这种情况。而且你想玩个大型游戏，想玩个什么《FIFA》、《实况》啊，根本就没法玩。所以如果还是有同学喜欢在 Linux 上折腾这种情况的话，我建议还是别折腾自己了，就赶紧开机或者是启动到 Windows 系统上，或者去苹果电脑上去玩。</p>
+<p>如果你是运行一个网络服务，比如说你做了一个网站。这时候呢，你最好就是用 Linux。为什么呢？因为大家首先都在用，你出了问题，网上搜一搜呢，你容易找到解决方案。当然也有人说微软也有做这个网站的服务器嘛，就是 Windows Server 那个系统。比如说 Stack Overflow 这么大的网站，人家就是用 Windows，但是还是用什么 .NET 开发的。但是这就属于非常小众，这就属于抬杠。就跟我前面说的一样，就有人就用那个Ubuntu做主力桌面，但是那是小众。也有的网站就是用 Windows 做这个主力的，但是那也是小众。因为我们还是要随大众，因为你大众的话找解决方案的话会好很多。</p>
+<p>所以我的观点就是说，你如果是个人用户，不是为了学编程，你就用这个 Windows 或者 Mac。如果你想做点事，比如说想学个编程啊、做个网站或者做个应用什么的，你就用 Linux，最好是装个双系统，两个都不耽误。没必要像网上很多人说的完全用某个系统，比如说完全用 Linux 工作，或者完全用什么东西工作。我看过一大部分的文章就是告诉你哎我怎么在这个Ubuntu上装上输入法、装上 QQ，其实这不仅误解了 Linux，也误解了 Windows。我们不能没事就写这种、看这种文章，就是发动圣战来讨伐哪个系统。讨伐 Windows、讨伐 Linux，其实也挺无聊的。</p>
+<p>当然，我写这篇文章，很大程度上就是因为有两个关注我微信公众号的朋友问我这种问题。当然，这两个小朋友都非常小，其中一个刚刚要去大一，就问Ubuntu上哪个中文输入法好。但想在Ubuntu上配置一下这个“Wine”这个软件。可能听众不知道这个“Wine”软件的话，我就说一下，它就是一个可以运行在Linux上，但是模拟微软操作系统API的一个兼容的软件。也就是说呢，你装了这个软件以后，你在Linux上再安装QQ啊或者Office啊，这些软件就认为自己是运行在Windows上。就这样。</p>
+<p>以前的时候，我，我上大学的时候就有了，现在我不知道，我已经好久不折腾这种事情了。对于这两位朋友，或者是再有类似问题的朋友，我的建议就是：如果你要运行微软的Office啊，或者是搜狗输入法或者是腾讯输入法，这种中文输入法，你就真的没必要在“优帮”上折腾。虽然你装了这个软件，就比如说这个兼容层的软件可能是可以运行起来的，但是你为什么不直接用个Windows的呢？是不是？如果这样的话，你还可以省一些时间，然后去读一下我文章开头推荐的那本情感书籍。比如说，就是那个叫《朱生豪情书》的，找个女朋友，也别总让人家笑话咱们这种程序员找不到女朋友什么的。</p>
+<p>好了，这期就到这里。</p>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./podcast032.html" class="pagination-link" aria-label="BSD版权战争中重获自由的Unix">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">BSD版权战争中重获自由的Unix</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./podcast034.html" class="pagination-link" aria-label="Linux传奇大鼻子男孩的诞生">
+        <span class="nav-page-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Linux传奇大鼻子男孩的诞生</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
